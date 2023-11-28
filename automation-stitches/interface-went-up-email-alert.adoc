@@ -1,0 +1,59 @@
+= Any of Fortigate interfaces goes up, send an email alert
+
+_Task_ We want to get email alert on any of the Fortigate interfaces changing
+status to _up. 
+
+
+NOTE: We cannot create a stitch combining both _up_ and _down_ changes, 
+need to create a stitch for each.
+
+The trigger for interface going up:
+
+----
+config system automation-trigger
+    edit "Interface_up_trigger"
+        set event-type event-log
+        set logid 20099
+        config fields
+            edit 1
+                set name "status"
+                set value "up"
+            next
+        end
+    next
+end
+----
+
+Action to send email alert (make sure mail server is configured in `config sys
+email-server`):
+
+----
+config system automation-action
+    next
+    edit "Interfaceup_email"
+        set action-type email
+        set email-to "admin@yurisk.info"
+        set email-from "fgt@yurisk.info"
+        set email-subject "Interface went up"
+        set email-subject "%%log.logdesc%%"
+    next
+end
+----
+
+
+Stitch itself:
+
+----
+config system automation-stitch
+    edit "Interface_went_up_stitch"
+        set trigger "Interface_up_trigger"
+        config actions
+            edit 1
+                set action "Interfaceup_email"
+                set required enable
+            next
+        end
+    next
+end
+----
+

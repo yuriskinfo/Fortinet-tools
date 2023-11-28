@@ -1,0 +1,42 @@
+= Send an email alert when CPU usage reaches the treshold
+
+_Task_: Once Fortigate CPU usage crosses the defined treshold, 90% by default 
+but can be changed under `config sys global` `set cpu-use-threshold`, send an
+email alert.
+
+
+* Trigger:
+
+----
+config system automation-trigger
+    edit "HighCPU_trigger"
+        set event-type high-cpu
+    next
+end
+----
+
+* Action to send email:
+
+----
+config system automation-action
+    edit "HighCPUemail"
+        set action-type email
+        set email-subject "%%log.logdesc%%"
+    next
+----
+
+* Stitch combining 2 above:
+
+----
+config system automation-stitch
+    edit "HighCPU"
+        set trigger "HighCPU_trigger"
+        config actions
+            edit 1
+                set action "HighCPUemail"
+                set required enable
+            next
+        end
+    next
+end
+----

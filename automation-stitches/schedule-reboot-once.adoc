@@ -1,0 +1,47 @@
+= Schedule reboot of Fortigate one time
+
+_Task_: Reboot Fortigate at 02:00 at night once.
+
+
+
+* Schedule a trigger to run once on 10th of October 2023:
+
+----
+config system automation-trigger
+    edit "ScheduledReboot_trigger"
+        set trigger-type scheduled
+        set trigger-frequency once
+        set trigger-datetime 2023-10-03 02:00:00
+    next
+end
+----
+
+* Action to actually reboot the firewall, using the command `exec reboot`:
+
+----
+config sys automation-aciton   
+         edit "ScheduledReboot"
+        set action-type cli-script
+        set script "exec reboot"
+        set accprofile "super_admin"
+    next
+end
+----
+
+* Stitch to tie all the above:
+
+----
+config sys automation-stitch
+    edit "ScheduledReboot_stitch"
+        set trigger "ScheduledReboot_trigger"
+        config actions
+            edit 1
+                set action "ScheduledReboot"
+                set required enable
+            next
+        end
+    next
+end
+----
+
+

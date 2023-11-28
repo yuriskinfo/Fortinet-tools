@@ -1,0 +1,12 @@
+= Fortinet-related scripts, tools, syntax highlighting files and such
+
+== Collection of automation stitches
+This collection is work in progress, and will always be. If you have an idea, or already implemented an automation 
+stitch not in the collection, I will be glad to add it for the benefit of all of us. Also, if you try some stitch from this repository and things do not work as expected - feel free to open an issue/PR with details. 
+
+Disclaimer: I cannot possibly test contents of this repo on all Fortigate models and FortiOS versions, so cannot guarantee 
+that it will work on your gear in your conditions, and cannot predict all possible outcomes.
+https://github.com/yuriskinfo/Fortinet-tools/tree/main/automation-stitches#collection-of-fortigate-automation-stitches[Collection of Automation Stitches]
+
+
+

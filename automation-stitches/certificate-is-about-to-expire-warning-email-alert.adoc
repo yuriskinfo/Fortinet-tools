@@ -1,0 +1,61 @@
+= Local TLS Certificate is about to expire email alert
+
+_Task_: When local to the Fortigate certificate is about to expire (10 days
+ahead), send an email alert. The stitch does not care what this certificate is
+used for - SSL VPN, or admin GUI access.
+
+
+
+Set how early before the expiration to alert, in days (the default is already 
+set on most versions to 14 days):
+
+----
+config vpn certificate setting
+    set cert-expire-warning 10
+end
+----
+
+
+Trigger:
+
+----
+config system automation-trigger
+    edit "CertToExpire_trigger"
+        set event-type local-cert-near-expiry
+    next
+end
+----
+
+
+Action (email alert):
+
+----
+config system automation-action
+    edit "CertIsAboutToExpire_alert"
+        set action-type email
+        set email-to "admin@yurisk.info"
+        set email-from "fgt@yurisk.info"
+        set email-subject "Fortigate certificate is about to expire"
+    next
+end
+----
+
+Stitch, tying all the above together:
+
+----
+
+
+config system automation-stitch
+    edit "CertificateToExpire_stitch"
+        set trigger "CertToExpire_trigger"
+        config actions
+            edit 1
+                set action "CertIsAboutToExpire_alert"
+            next
+        end
+    next
+end
+
+----
+
+

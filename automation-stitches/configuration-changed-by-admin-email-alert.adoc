@@ -1,0 +1,50 @@
+= Send alert on Fortigate configuration changed by administrator without details
+
+_Task_: Each time any configuration is being changed send an email. 
+
+NOTE: This alert will only contain a message "Configuration changed" with the
+username and IP of the administrator, but will *not* contain what changes were
+made. Additionally, this stitch will fire only *after* the administrator having
+made changes logs out of the Fortigate. That is, if say admin session will last
+hours, only after logging out will we receive alert.
+
+
+
+* Trigger:
+
+----
+config sys automation-trigger
+    edit "ConfigChanged_trigger"
+        set event-type config-change
+    next
+end
+----
+
+* Action - email alert:
+
+----
+config sys automation-action
+    edit "ConfigChanged_email"
+        set action-type email
+        set email-to "admin@yurisk.info"
+        set email-from "fgt@yurisk.info"
+        set email-subject "%%log.logdesc%%"
+    next
+end
+----
+
+* Stitch:
+
+----
+    edit "ConfigChanged"
+        set status disable
+        set trigger "ConfigChanged_trigger"
+        config actions
+            edit 1
+                set action "ConfigChanged_email"
+                set required enable
+            next
+        end
+    next
+end
+----

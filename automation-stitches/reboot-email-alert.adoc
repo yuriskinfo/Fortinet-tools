@@ -1,0 +1,60 @@
+= Fortigate undergoing a reboot email alert
+
+_Task_: When a user initiates reboot, send email alert with user's IP and 
+username. 
+
+NOTE: This built-in automation stitch fires *only* when an admin-level 
+user initiates reboot via a command `exe reboot` or GUI `System -> Reboot`, 
+not when there is unexpected power outage or someone pulls the power plug.
+See:
+
+
+
+* Trigger as reboot event:
+
+----
+config system automation-trigger
+    edit "Reboot"
+        set event-type reboot
+    next
+end
+----
+
+
+* Action to send email:
+
+----
+config system automation-action
+    edit "Reboot_email"
+        set action-type email
+       set email-to "admin@yurisk.info"
+        set email-from "fgt@yurisk.info"
+        set email-subject "%%log.logdesc%%"
+
+    next
+end
+----
+
+
+
+
+
+* Stitch itself:
+
+----
+config system automation-stitch
+    edit "Reboot"
+        set trigger "Reboot"
+        config actions
+            edit 1
+                set action "Reboot_email"
+                set required enable
+            next
+        end
+    next 
+end
+----
+
+
+NOTE: You cannot test this stitch any other way but to reboot the Fortigate.
+

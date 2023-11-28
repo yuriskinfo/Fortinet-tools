@@ -1,0 +1,105 @@
+= Back up configuration daily to external server via SFTP
+
+_Task_: Nightly (at 02:00 am) back up the Fortigate configuration to external server (10.10.10.13) via SFTP protocol. 
+
+Fortigate can do back ups using TFTP (unsecure and unreliable), FTP (unsecure
+but reliable), and SFTP (secure and reliable) protocols. I will be using the
+SFTP to back up to an external server (RHEL) _10.10.10.13_. SFTP works over the
+SSH tunnel, so no additional configurations beyond user/SSH on the server are
+needed in most cases. 
+
+Here:
+
+* _10.10.10.13_ Linux server with SSH open to the Fortigate.
+* _fgtbackup_ User on the Linux server.
+* _fgPW39--7_ Password of the user _fgtbaclup_ on the server.
+
+WARNING: The password for the user will be stored in clear text inside the Fortigate 
+configuration and so will be present in the backup on the server as well. I couldn't find the
+way to prevent this, the variations of `exe backup obfuscated-config` do not
+help here, so be aware. 
+
+
+* Trigger: When Fortigate time reaches 02:00 am, run this trigger
+
+
+----
+condfig sys automation-trigger
+    edit "ScheduledBackup_trigger"
+        set trigger-type scheduled
+        set trigger-hour 2
+        set trigger-minute 0
+     next
+end
+----
+
+
+
+* Action: run backup command on the CLI:
+
+----
+config sys automation-ation
+    edit "ConfigBackupOnSchedule"
+        set action-type cli-script
+        set script " exe backup config sftp fgtconfig-%%date%%-%%time%%.conf
+10.10.10.13 fgtbackup fgPW39--7"
+        set accprofile "super_admin"
+    next
+end
+----
+
+NOTE: `%%date%%` and `%%time%%` will be converted to the actual date and time
+when the backup is run.
+
+The result will look like this on  the server:
+
+----
+# ls -1
+fgtconfig-2023-03-14-02:00:49.conf
+fgtconfig-2023-03-14-02:00:15.conf
+----
+
+This way, we can easily compare and see the changes made during this day using
+Linux built-tools like `diff` on the server.
+
+
+* Stitch to combine the above:
+
+----
+config sys automation-stitch
+    edit "BackUpOnConfigChange"
+        set trigger "ScheduledBackup_trigger"
+        config actions
+            edit 1
+                set action "ConfigBackupOnSchedule"
+                set required enable
+            next
+        end
+    next
+end
+----
+
+
+As an option, run the backup and send email alert that configuration has
+been backed up:
+
+
+----
+config sys automation-stitch
+    edit "BackUpOnConfigChange"
+        set trigger "ConfigChanged_trigger"
+        config actions
+            edit 1
+                set action "ScheduledBackup_trigger"
+                set required enable
+            next
+            edit 2
+                set action "BackUpRun_email"
+                set required enable
+            next
+        end
+    next
+end
+----
+
+

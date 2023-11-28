@@ -1,0 +1,50 @@
+= Send email alert on successful admin-level user log in.
+*Task*: fire an email alert to _admin@yurisk.info_ each time 
+some user with admin-level permissions logs in to this Fortigate.
+
+
+NOTE: Make sure you have SMTP mail server configured under `config system
+email-server`
+
+This alert will run on ANY user with admin-level permissions login, not 
+just namely `admin` user.
+
+
+Replace _admin@yurisk.info_ and _fgt@yurisk.info_ values with your own.
+
+
+
+----
+config system automation-trigger
+    edit "AdminLogin"
+        set event-type event-log
+        set logid 32001
+    next
+end
+----
+
+
+----
+config system automation-action
+    edit "AdminLogin_email"
+        set action-type email
+        set email-to "admin@yurisk.info"
+        set email-from "fgt@yurisk.info"
+        set email-subject "FGT Admin level user logged in"
+    next
+end
+----
+
+----
+config sys automation-stitch
+    edit "AdminLogin_stitch"
+        set trigger "AdminLogin"
+        config actions
+            edit 1
+                set action "AdminLogin_email"
+                set required enable
+            next
+        end
+    next
+end
+----

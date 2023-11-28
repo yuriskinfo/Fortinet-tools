@@ -1,0 +1,49 @@
+= Restart IPS process daily 
+
+_Task_: We need to restart `IPS` process daily as a workaround for its memory 
+leaking . The process restart will happen at 02:10 at night.
+
+
+
+* Create an action of restarting ips process on CLI:
+
+----
+config sys automation-action
+    edit "ScheduleipsRestart"
+        set action-type cli-script
+        set script "diagnose test application ipsmonitor 99"
+        set accprofile "super_admin"
+    next
+end
+----
+
+* Create a daily schedule (every day at 02:10 at night):
+
+----
+config system automation-trigger
+    edit "Daily_trigger"
+        set trigger-type scheduled
+        set trigger-frequency daily
+        set trigger-hour 2
+        set trigger-minute 10
+    next
+end
+----
+
+* Stitch to combine the 2 above:
+
+----
+config sys automation-stitch
+    edit "ScheduledReboot_stitch"
+        set status disable
+        set trigger "Daily_trigger"
+        config actions
+            edit 1
+                set action "ScheduleipsRestart"
+                set required enable
+            next
+        end
+    next
+end
+----
+

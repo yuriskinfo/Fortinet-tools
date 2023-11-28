@@ -1,0 +1,102 @@
+= Back up configuration when changed to external server via SFTP
+
+_Task_: When an administrator changes the configuration, back it up after she
+logs out of the Fortigate. This will back up the _changed_ configuration.
+
+Fortigate can do back ups using TFTP (unsecure and unreliable), FTP (unsecure
+but reliable), and SFTP (secure and reliable) protocols. I will be using the
+SFTP and back up to an external server (RHEL) _10.10.10.13_. SFTP works over the
+SSH tunnel, so no additional configurations beyond user/SSH on the server are
+needed in most cases. 
+
+Here:
+
+* _10.10.10.13_ Linux server with SSH open to the Fortigate.
+* _fgtbackup_ User on the Linux server.
+* _fgPW39--7_ Password of the user _fgtbaclup_ on the server.
+
+WARNING: The password for the user will be stored in clear text inside the
+configuration and so will be present in the back up as well. I couldn't find the
+way to prevent this, the variations of `exe backup obfuscated-config` do not
+help here, so be aware. 
+
+
+* Trigger: when the configuration changed and admin logs out
+
+----
+config sys automation-trigger
+    edit "ConfigChanged_trigger"
+        set event-type config-change
+    next 
+end
+----
+
+
+* Action: run back up command on the CLI:
+
+----
+config sys automation-ation
+    edit "ConfigBackupOnChange"
+        set action-type cli-script
+        set script " exe backup config sftp fgtconfig-%%date%%-%%time%%.conf
+10.10.10.13 fgtbackup fgPW39--7"
+        set accprofile "super_admin"
+    next
+end
+----
+
+NOTE: `%%date%%` and `%%time%%` will be converted to the actual date and time
+when the back up is run.
+
+The result will look like this on  the server:
+
+----
+# ls -1
+fgtconfig-2023-03-14-11:20:49.conf
+fgtconfig-2023-03-14-11:50:15.conf
+----
+
+I can easily see the changes made in each administrator session using
+built-tools like `diff` on the server.
+
+
+* Stitch to combine the above:
+
+----
+config sys automation-stitch
+    edit "BackUpOnConfigChange"
+        set trigger "ConfigChanged_trigger"
+        config actions
+            edit 1
+                set action "ConfigBackupOnChange"
+                set required enable
+            next
+        end
+    next
+end
+----
+
+
+As an option, run the back up and send email alert that configuration has
+changed:
+
+
+----
+config sys automation-stitch
+    edit "BackUpOnConfigChange"
+        set trigger "ConfigChanged_trigger"
+        config actions
+            edit 1
+                set action "ConfigBackupOnChange"
+                set required enable
+            next
+            edit 2
+                set action "ConfigChanged_email"
+                set required enable
+            next
+        end
+    next
+end
+----
+
+

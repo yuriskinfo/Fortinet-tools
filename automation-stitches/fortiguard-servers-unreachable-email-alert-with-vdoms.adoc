@@ -1,0 +1,80 @@
+= Send email alert on FortiGuard servers becoming unreachable and attach debug output (with VDOMs)
+
+*Task*: when FortiGuard servers become unreachable for WebFiltering by
+Categories in real-time, run debug and send an email alert with debug results.
+
+NOTE: Make sure you have SMTP mail server configured under `config system 
+email-server`
+
+NOTE: Change the VDOM _root_ to the administrative one on your Fortigate, if they differ (if you have no idea, leave it as is).
+
+
+
+
+
+* Trigger:
+
+----
+config system automation-trigger
+   edit "WebFilterDown_trigger"
+        set event-type event-log
+        set logid 20119
+    next
+end
+----
+
+* Action. We have 2 sequential actions, 1st runs CLI debug, 2nd sends the results in email.
+
+----
+ config sys automation-action
+    edit "FortiGuardDown_debug"
+        set action-type cli-script
+        set script " config vdom
+edit root
+exe  ping service.fortiguard.net
+exe ping update.fortiguard.net
+exe ping guard.fortinet.net
+diagnose debug rating
+end
+config global
+get sys stat
+get sys perf stat
+show full system global | grep vdom
+"
+        set accprofile "super_admin"
+    next
+
+----
+
+----
+   edit "WebFilterDown_email"
+        set action-type email
+        set email-to "admin@yurisk.info"
+        set email-from "fgt@yurisk.info"
+        set email-subject "FortiGuard is unreachable, see debug attached"
+        set message  "%%results%%"
+    next
+end
+----
+
+
+
+
+* Stitch to combine all the above:
+
+----
+config system automation-stitch
+   edit "WebFilterDown_stitch"
+        set trigger "WebFilterDown_trigger"
+        config actions
+            edit 1
+                set action  "FortiGuardDown_debug"
+                set required enable
+            edit 2
+                set action "WebFilterDown_email"
+                set required enable
+            next
+        end
+    next
+end
+----

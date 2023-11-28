@@ -1,0 +1,155 @@
+= Collection of Fortigate Automation Stitches
+:toc:
+
+== Important facts
+* If you have VDOMs enabled, you find Automation Stitches GUI menu 
+under the _Global_ section.
+* When VDOMs are enabled, any networking with external to Fortigate hosts will happen with IP and from 
+the _administrative_ VDOM (usually `root`). E.g. auto-backup of configuration to external server etc. It means you need to 
+have security rules in _admin_ VDOM accordingly.
+* When using email as alert action, make sure you have configured mail server 
+to relay these alerts. On CLI it is in `config sys email-server`, and in GUI it
+is in the System -> Settings. 
+* It is recommended to configure PTR record for the sending IP of the Fortigate,
+as well as SPF record in the domain you're sending from to prevent mails being
+marked as spam.
+* Trigger _Field Conditions_ - they match on either exact values or wildcards, no regex, no
+ranges for numeric values. Also no partial match, so you cannot match _"Interface
+down"_ string with a word _"down"_, unless using wildcard +++*down*+++.
+* Bugs are always possible, e.g. for the built-in stitch _Reboot_, even though
+it works and fires, the _trigger count_ stays 0. 
+* These types of stitches have _Test automation stitch_ grayed out:
+** Event Log based.
+** Configuration change.
+** Reboot.
+** License expiration.
+** HA failover.
+** Scheduled.
+* For scheduled triggers make sure Fortigate has reliable time source, like NTP.
+
+== All about email alerts
+
+* With VDOMs enabled, the email is sent from the _administrative_ VDOM (usually
+_root_) with the source IP defined by the routing table.
+* All the fields you see in the Fortigate *raw log* are available to be included in the email message.
+* When sending an email as action, based on log events, the body will contain the complete log
+(`%%log%%`) by default, no need to do anything for that. But, if you do NOT want to include
+log, for privacy reasons, set the `message` parameter to anything else:
+
+----
+config sys automation-action
+    edit "EmailWithoutBody"
+        set action-type email
+        set email-to "admin@yurisk.info"
+        set email-from "fgt@yurisk.info"
+        set email-subject "The stitch has fired"
+        set message "This text replaces the full log in the body."
+    next
+end
+----
+* Use specific log field surrounded with double `%` to include it in the message when the trigger is FortiOS Log Event. E.g. to include username of the admin that logged in the subject, and the source IP,  and _time_ in the message body:
+
+----
+
+config sys automation-action
+    edit ""AdminLoggedIn"
+        set action-type email
+        set email-to "admin@yurisk.info"
+        set email-from "fgt@yurisk.info"
+        set email-subject "Admin user %%user%% logged in"
+        set message  "Source IP: %%srcip%%
+Time: %%time%%"
+    next
+end
+----
+* There is a special variable `%%results%%` that we can use in the Actions, it will be replaced with the output of the previously run command. E.g. you can create 2-step actions, 1st action runs some CLI debug on the Fortigate, the 2nd action sends the debug output by email, see example here: link:fortiguard-servers-unreachable-email-alert.adoc[Send email alert on FortiGuard servers becoming unreachable and attach debug output ]. Be aware that it will include sensitive info if presented on CLI as well.
+* For anything you send in the email body, there is a limit of 16 KBytes, may differ by model. 
+* Email server for sending alerts is configured under System -> Settings, or on CLI:
+
+----
+config system email-server
+    set reply-to "fgt@yurisk.info"
+    set server "192.0.0.1" // MAIL FROM field is taken from here, unless set in the stitch action
+    set authenticate enable
+    set username "secret@yurisk.info"
+    set password s$cr$t
+end
+----
+
+
+== Debug
+* *diag test app autod 2* Show all enabled stitches with their settings.
+* *diag test app autod 3* Show statistics for all enabled stitches, including numbers run (_hit_).
+* Email sending debug: *dia debug app alertmail -1*. This will show the whole mail sending session.
+* Reboot zeroizes the stitches statistics.
+* Some stitches have right click -> _Test automation stitch_ menu so that you can
+trigger the stitch to see if it works. The CLI analog is *diagnose automation test <stitch name> <log if needed>*.
+* Live debug:
+** *diag debug reset* To reset any previous debug, just in case.
+** *diag test app autod 1* Enable automation stitches logging.
+** *diag debug cli 7* Show stitches' running log on the CLI.
+** *diag debug enable* Enable debug.
+**  right click -> _Test automation stitch_ menu or *diagnose automation test <stitch name> <log if needed>*.
+* Log-based stitches have the menu _Test automation stitch_ grayed out, and we
+can only trigger them for testing if we input the real log on the CLI. This will
+also insert this log into the Fortigate logs as if it really happened. Example
+of such log supplied on CLI, pay attention to every quote " being escaped and
+log should be a single line:
+
+----
+diagnose automation test VPNTunnelUp "date=2023-02-23 time=09:27:43
+eventtime=1677144463207296135 tz=\"+0000\" logid=\"0101039947\" type=\"event\"
+subtype=\"vpn\" level=\"information\" vd=\"root\" logdesc=\"SSL VPN tunnel up\"
+action=\"tunnel-up\" tunneltype=\"ssl-tunnel\" tunnelid=418623311
+remip=185.242.6.3 tunnelip=172.19.12.1 user=\"vpnlocal\" group=\"vpnsslgrp\"
+dst_host=\"N/A\" reason=\"tunnel established\" msg=\"SSL tunnel established\""
+----
+
+See for the full example: link:ssl-vpn-user-login-successful-from-specific-ip-alert-by-email.adoc[SSL VPN tunnel up with condition of remote IP address]
+
+
+== Automation Stitches Collection
+
+
+link:admin-level-user-logged-in-email-alert.adoc[Send email alert on successful admin-level user log in.]
+
+link:admin-level-user-was-created.adoc[Send email on admin-level user being created/added]
+
+link:backup-config-on-change.adoc[Back up configuration when changed to external server via SFTP]
+
+link:backup-config-daily-to-external-server.adoc[Back up configuration daily to external server via SFTP]
+
+link:certificate-is-about-to-expire-warning-email-alert.adoc[Local TLS Certificate is about to expire email alert]
+
+link:configuration-changed-by-admin-email-alert.adoc[Send alert on Fortigate configuration changed by administrator without details]
+
+link:configuration-changed-by-admin-with-changes-email-alert.adoc[Send alert on Fortigate configuration changed by administrator with details]
+
+link:conserve-mode-on-email-alert.adoc[email alert on Fortigate entering conserve mode]
+
+link:fortiguard-servers-unreachable-email-alert-with-vdoms.adoc[Send email alert on FortiGuard servers becoming unreachable and attach debug output (with VDOMs)]
+
+link:fortiguard-servers-unreachable-email-alert.adoc[Send email alert on FortiGuard servers becoming unreachable and attach debug output (without VDOMs)]
+
+link:high-cpu-usage-email-alert.adoc[Send an email alert when CPU usage reaches the treshold]
+
+link:interface-went-down-email-alert.adoc[Any of Fortigate interfaces goes down, send an email alert]
+
+link:interface-went-up-email-alert.adoc[Any of Fortigate interfaces goes up, send an email alert]
+
+link:reboot-email-alert.adoc[Fortigate undergoing a reboot email alert]
+
+link:restart-ips-process-daily.adoc[Restart IPS process daily ]
+
+link:restart-wad-process-daily.adoc[Restart WAD process daily ]
+
+link:schedule-daily-reboot.adoc[Schedule daily reboot of Fortigate]
+
+link:schedule-reboot-once.adoc[Schedule reboot of Fortigate one time]
+
+link:schedule-weekly-reboot.adoc[Schedule weekly reboot of Fortigate]
+
+link:specific-interface-went-down-email-alert.adoc[When  only a given interface goes down, send an email alert]
+
+link:ssl-vpn-user-login-successful-from-specific-ip-alert-by-email.adoc[SSL VPN tunnel up with condition of remote IP address]
+

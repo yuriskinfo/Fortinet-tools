@@ -1,0 +1,63 @@
+= When  only a given interface goes down, send an email alert
+
+_Task_ We want to get email alert only when interface _port2_ goes down. 
+
+
+The trigger for interface _port2_  going down:
+
+
+
+
+----
+config sys automation-trigger
+    edit "Interface_down_trigger"
+        set event-type event-log
+        set logid 20099
+        config fields
+            edit 1
+                set name "status"
+                set value "down"
+            next
+            edit 2
+                set name "msg"
+                set value "Link monitor: Interface port2 was turned down"
+            next
+        end
+    next
+end
+----
+
+
+Action to send email alert (make sure mail server is configured in `config sys
+email-server`):
+
+----
+config system automation-action
+    next
+    edit "InterfaceDown_email"
+        set action-type email
+        set email-to "admin@yurisk.info"
+        set email-from "fgt@yurisk.info"
+        set email-subject "Interface port2  went down"
+        set email-subject "%%log.logdesc%%"
+    next
+end
+----
+
+
+Stitch itself:
+
+----
+config system automation-stitch
+    edit "Interface_went_down_stitch"
+        set trigger "Interface_down_trigger"
+        config actions
+            edit 1
+                set action "InterfaceDown_email"
+                set required enable
+            next
+        end
+    next
+end
+----
+

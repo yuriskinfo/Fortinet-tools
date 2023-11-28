@@ -1,0 +1,47 @@
+= Schedule weekly reboot of Fortigate
+
+_Task_: Reboot Fortigate weekly at 02:00 at night every Sunday.
+
+
+* Schedule every week on Sunday at 02:00 at night as a trigger:
+
+----
+config system automation-trigger
+    edit "ScheduledReboot_trigger"
+        set trigger-type scheduled
+        set trigger-frequency weekly
+        set trigger-weekday sunday
+        set trigger-hour 2
+    next
+end
+----
+
+* Action to actually reboot the firewall, using the command `exec reboot`:
+
+----
+config sys automation-aciton   
+         edit "ScheduledReboot"
+        set action-type cli-script
+        set script "exec reboot"
+        set accprofile "super_admin"
+    next
+end
+----
+
+* Stitch to tie all the above:
+
+----
+config sys automation-stitch
+    edit "ScheduledReboot_stitch"
+        set trigger "ScheduledReboot_trigger"
+        config actions
+            edit 1
+                set action "ScheduledReboot"
+                set required enable
+            next
+        end
+    next
+end
+----
+
+

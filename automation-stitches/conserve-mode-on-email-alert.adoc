@@ -1,0 +1,52 @@
+= email alert on Fortigate entering conserve mode
+
+_Task_: Send an email alert on Fortigate entering the Conserve Mode. 
+Fortigate enters Conserve Mode when the memory usage reaches 88% by default, 
+but can be configured by an administrator to other values under `config sys global`, 
+`set memory-use-threshold-red`. 
+
+* Create trigger for the event:
+
+----
+config system automation-trigger
+    edit "ConserveModeOn_trigger"
+        set event-type low-memory
+    next
+----
+
+* Add email alert action:
+
+----
+config system automation-action
+    edit "ConserveModeOn_action"
+        set action-type email
+        set email-to "admin@yurisk.info"
+        set email-from "fgt@yurisk.info"
+        set email-subject "Fortigate entered conserve mode"
+    next
+end
+----
+
+
+
+
+
+
+
+* Create automation stitch using the 2 above:
+
+----
+config system automation-stitch
+    edit "ConserveModeEntered_stitch"
+        set trigger "ConserveModeOn_trigger"
+        config actions
+            edit 1
+                set action "ConserveModeOn_action"
+                set required enable
+            next
+        end
+    next
+end
+----
+
+

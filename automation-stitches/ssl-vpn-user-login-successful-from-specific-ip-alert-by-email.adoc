@@ -1,0 +1,69 @@
+= SSL VPN tunnel up with condition of remote IP address
+
+_Task_: fire an email alert to admin@yurisk.info when a user connects to
+the Fortigate by SSL VPN AND she/he connects from IP address 185.242.6.3
+The email alert will contain full body message of the log
+
+NOTE: Make sure you have SMTP mail server configured under
+`config system email-server`
+
+NOTE: Replace _admin@yurisk.info_, _185.242.6.3_, _fgt@yurisk.info_ with
+your own values.
+
+
+
+
+
+----
+config system automation-trigger
+    edit "TunnelisUpLog"
+        set event-type event-log
+        set logid 39947
+        config fields
+            edit 1
+                set name "remip"
+                set value "185.242.6.3"
+            next
+        end
+    next
+end
+----
+
+----
+config system automation-action
+    edit "VPNUpEmail"
+        set action-type email
+        set email-to "admin@yurisk.info"
+        set email-from "fgt@yurisk.info"
+        set email-subject "FGT AWS VPN SSL tunnel is up"
+    next
+end
+----
+
+
+----
+config sys automation-stitch
+    edit "VPNTunnelUp"
+        set trigger "TunnelisUpLog"
+        config actions
+            edit 1
+                set action "VPNUpEmail"
+                set required enable
+            next
+        end
+    next
+end
+----
+
+
+== Testing
+The only way to test except actually connecting by SSL VPN, is to feed the actual log 
+that will match the condition. So,
+run the command below AS IS on a Fortigate CLI to trigger the stitch, as a
+single line:
+
+diagnose automation test VPNTunnelUp "date=2023-02-23 time=09:27:43 eventtime=1677144463207296135 tz=\"+0000\" logid=\"0101039947\" type=\"event\" subtype=\"vpn\" level=\"information\" vd=\"root\" logdesc=\"SSL VPN tunnel up\" action=\"tunnel-up\" tunneltype=\"ssl-tunnel\" tunnelid=418623311 remip=185.242.6.3 tunnelip=172.19.12.1 user=\"vpnlocal\" group=\"vpnsslgrp\" dst_host=\"N/A\" reason=\"tunnel established\" msg=\"SSL tunnel established\""
+
+
+
+

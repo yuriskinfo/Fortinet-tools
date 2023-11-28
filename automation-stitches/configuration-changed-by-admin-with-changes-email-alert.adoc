@@ -1,0 +1,48 @@
+= Send alert on Fortigate configuration changed by administrator with details
+
+_Task_: Each time any configuration is being changed send an email that will also contain the detailed description of what changes were made. 
+
+NOTE: This stitch will fire on *every* change made by the administrator and 
+in *real-time*, each time the admin clicks on _Apply_ in GUI, or enters
+_end/next_ in CLI. In GUI, the log id os 44546 and 44547 are called _Attribute 
+configured_ and _Object attribute configured_.
+
+
+* Trigger:
+
+----
+config sys automation-trigger
+    edit "ConfigChanges_trigger"
+        set event-type event-log
+        set logid 44546 44547
+    next
+end
+----
+
+* Action - email alert:
+
+----
+config sys automation-action
+    edit "ConfigChanged_email"
+        set action-type email
+        set email-to "admin@yurisk.info"
+        set email-from "fgt@yurisk.info"
+        set email-subject "%%log.logdesc%%"
+    next
+end
+----
+
+* Stitch:
+
+----
+    edit "ConfigChangedwithChanges"
+        set trigger "ConfigChanges_trigger"
+        config actions
+            edit 1
+                set action "ConfigChanged_email"
+                set required enable
+            next
+        end
+    next
+end
+----
