@@ -6,7 +6,7 @@ NOTE: This alert will only contain a message "Configuration changed" with the
 username and IP of the administrator, but will *not* contain what changes were
 made. Additionally, this stitch will fire only *after* the administrator having
 made changes logs out of the Fortigate. That is, if say admin session will last
-hours, only after logging out will we receive alert.
+hours, only after logging out will we receive an alert.
 
 
 

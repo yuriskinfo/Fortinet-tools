@@ -1,6 +1,6 @@
 = Fortinet-related scripts, tools, syntax highlighting files and such
 
-== Collection of automation stitches
+== Collection of Fortigate automation stitches
 This collection is work in progress, and will always be. If you have an idea, or already implemented an automation 
 stitch not in the collection, I will be glad to add it for the benefit of all of us - yuri@yurisk.info. Also, if you try some stitch from this repository and things do not work as expected - feel free to open an issue/PR with details. 
 

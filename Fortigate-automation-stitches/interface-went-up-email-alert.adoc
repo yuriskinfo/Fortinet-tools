@@ -7,7 +7,7 @@ status to _up.
 NOTE: We cannot create a stitch combining both _up_ and _down_ changes, 
 need to create a stitch for each.
 
-The trigger for interface going up:
+* Trigger for interface going up:
 
 ----
 config system automation-trigger
@@ -24,7 +24,7 @@ config system automation-trigger
 end
 ----
 
-Action to send email alert (make sure mail server is configured in `config sys
+* Action to send email alert (make sure mail server is configured in `config sys
 email-server`):
 
 ----
@@ -41,7 +41,7 @@ end
 ----
 
 
-Stitch itself:
+* Stitch itself:
 
 ----
 config system automation-stitch

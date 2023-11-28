@@ -14,7 +14,7 @@ Here:
 * _fgtbackup_ User on the Linux server.
 * _fgPW39--7_ Password of the user _fgtbaclup_ on the server.
 
-WARNING: The password for the user will be stored in clear text inside the Fortigate 
+WARNING: The password for the sftp user will be stored in clear text inside the Fortigate 
 configuration and so will be present in the backup on the server as well. I couldn't find the
 way to prevent this, the variations of `exe backup obfuscated-config` do not
 help here, so be aware. 

@@ -6,7 +6,6 @@ username.
 NOTE: This built-in automation stitch fires *only* when an admin-level 
 user initiates reboot via a command `exe reboot` or GUI `System -> Reboot`, 
 not when there is unexpected power outage or someone pulls the power plug.
-See:
 
 
 

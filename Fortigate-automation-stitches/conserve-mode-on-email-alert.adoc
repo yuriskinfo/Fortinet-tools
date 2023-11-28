@@ -29,10 +29,6 @@ end
 
 
 
-
-
-
-
 * Create automation stitch using the 2 above:
 
 ----

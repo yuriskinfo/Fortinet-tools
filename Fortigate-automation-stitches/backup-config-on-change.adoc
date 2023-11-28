@@ -1,7 +1,7 @@
 = Back up configuration when changed to external server via SFTP
 
 _Task_: When an administrator changes the configuration, back it up after she
-logs out of the Fortigate. This will back up the _changed_ configuration.
+logs out of the Fortigate. 
 
 Fortigate can do back ups using TFTP (unsecure and unreliable), FTP (unsecure
 but reliable), and SFTP (secure and reliable) protocols. I will be using the
@@ -15,8 +15,8 @@ Here:
 * _fgtbackup_ User on the Linux server.
 * _fgPW39--7_ Password of the user _fgtbaclup_ on the server.
 
-WARNING: The password for the user will be stored in clear text inside the
-configuration and so will be present in the back up as well. I couldn't find the
+WARNING: The password for the sftp user will be stored in clear text inside the
+configuration and so will be present in the back up on server as well. I couldn't find the
 way to prevent this, the variations of `exe backup obfuscated-config` do not
 help here, so be aware. 
 

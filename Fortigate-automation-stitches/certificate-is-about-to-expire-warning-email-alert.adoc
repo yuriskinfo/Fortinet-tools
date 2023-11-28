@@ -6,7 +6,7 @@ used for - SSL VPN, or admin GUI access.
 
 
 
-Set how early before the expiration to alert, in days (the default is already 
+* Set how early before the expiration to alert, in days (the default is already 
 set on most versions to 14 days):
 
 ----
@@ -16,7 +16,7 @@ end
 ----
 
 
-Trigger:
+* Trigger:
 
 ----
 config system automation-trigger
@@ -27,7 +27,7 @@ end
 ----
 
 
-Action (email alert):
+* Action (email alert):
 
 ----
 config system automation-action
@@ -40,11 +40,9 @@ config system automation-action
 end
 ----
 
-Stitch, tying all the above together:
+* Stitch, tying all the above together:
 
 ----
-
-
 config system automation-stitch
     edit "CertificateToExpire_stitch"
         set trigger "CertToExpire_trigger"

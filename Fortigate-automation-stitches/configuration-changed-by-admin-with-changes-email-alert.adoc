@@ -4,8 +4,7 @@ _Task_: Each time any configuration is being changed send an email that will als
 
 NOTE: This stitch will fire on *every* change made by the administrator and 
 in *real-time*, each time the admin clicks on _Apply_ in GUI, or enters
-_end/next_ in CLI. In GUI, the log id os 44546 and 44547 are called _Attribute 
-configured_ and _Object attribute configured_.
+_end/next_ in CLI. In GUI, the log ids are 44546 and 44547 and called _Attribute configured_ and _Object attribute configured_.
 
 
 * Trigger:
