@@ -4,14 +4,14 @@
 == Important facts
 * If you have VDOMs enabled, you find Automation Stitches GUI menu 
 under the _Global_ section.
-* When VDOMs are enabled, any networking with external to Fortigate hosts will happen with IP and from 
+* When VDOMs are enabled, any networking with external to Fortigate hosts will happen with source  IP and from 
 the _administrative_ VDOM (usually `root`). E.g. auto-backup of configuration to external server etc. It means you need to 
-have security rules in _admin_ VDOM accordingly.
+have security rules in _admin_ VDOM accordingly to allow such communication.
 * When using email as alert action, make sure you have configured mail server 
 to relay these alerts. On CLI it is in `config sys email-server`, and in GUI it
 is in the System -> Settings. 
 * It is recommended to configure PTR record for the sending IP of the Fortigate,
-as well as SPF record in the domain you're sending from to prevent mails being
+as well as SPF record in the domain you're sending from, to prevent mails being
 marked as spam.
 * Trigger _Field Conditions_ - they match on either exact values or wildcards, no regex, no
 ranges for numeric values. Also no partial match, so you cannot match _"Interface
@@ -68,8 +68,8 @@ end
 
 ----
 config system email-server
-    set reply-to "fgt@yurisk.info"
-    set server "192.0.0.1" // MAIL FROM field is taken from here, unless set in the stitch action
+    set reply-to "fgt@yurisk.info" // MAIL FROM field is taken from here, unless set in the stitch action
+    set server "192.0.0.1" 
     set authenticate enable
     set username "secret@yurisk.info"
     set password s$cr$t
