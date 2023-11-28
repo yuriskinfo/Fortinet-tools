@@ -1,4 +1,5 @@
 = Send email alert on successful admin-level user log in.
+
 *Task*: fire an email alert to _admin@yurisk.info_ each time 
 some user with admin-level permissions logs in to this Fortigate.
 
