@@ -6,7 +6,7 @@ stitch not in the collection, I will be glad to add it for the benefit of all of
 
 Disclaimer: I cannot possibly test contents of this repo on all Fortigate models and FortiOS versions, so cannot guarantee 
 that it will work on your gear in your conditions, and cannot predict all possible outcomes, so test before using in production.
-https://github.com/yuriskinfo/Fortinet-tools/tree/main/automation-stitches#collection-of-fortigate-automation-stitches[Collection of Automation Stitches]
+https://github.com/yuriskinfo/Fortinet-tools/tree/main/Fortigate-automation-stitches#collection-of-fortigate-automation-stitches[Collection of Automation Stitches]
 
 
 
