@@ -1,2 +1,5 @@
 # VS Code
-#.vscode/*
+.vscode/*
+*.code-workspace
+.history
+.settings
