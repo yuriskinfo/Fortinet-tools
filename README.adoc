@@ -7,8 +7,8 @@ Make sure to watch this repository to get notified on updates. Your stars on the
 This collection is work in progress, and will always be. If you have an idea, or already implemented an automation 
 stitch not in the collection, I will be glad to add it for the benefit of all of us - yuri@yurisk.info. Also, if you try some stitch from this repository and things do not work as expected - feel free to open an issue/PR with details. 
 
-Disclaimer: I cannot possibly test contents of this repo on all Fortigate models and FortiOS versions, so cannot guarantee 
-that it will work on your gear, and cannot predict all possible outcomes, so test before using in production. All stitches were tested on FortiOS 7.0.x and 7.2.x, and should work as is on 7.4.x as well.
+Disclaimer: I cannot possibly test contents of this repo on all Fortigate models and FortiOS versions, and cannot guarantee 
+that it will work on your gear, nor can predict all possible outcomes, so test before using in production. All stitches were tested on FortiOS 7.0.x and 7.2.x, and should work as is on 7.4.x as well.
 
 https://github.com/yuriskinfo/Fortinet-tools/tree/main/Fortigate-automation-stitches#collection-of-fortigate-automation-stitches[Collection of Automation Stitches]
 
