@@ -131,7 +131,7 @@ link:fortiguard-servers-unreachable-email-alert-with-vdoms.adoc[Send email alert
 
 link:fortiguard-servers-unreachable-email-alert.adoc[Send email alert on FortiGuard servers becoming unreachable and attach debug output (without VDOMs)]
 
-link:high-cpu-usage-email-alert.adoc[Send an email alert when CPU usage reaches the treshold]
+link:high-cpu-usage-email-alert.adoc[Send an email alert when CPU usage reaches the threshold]
 
 link:interface-went-down-email-alert.adoc[Any of Fortigate interfaces goes down, send an email alert]
 
