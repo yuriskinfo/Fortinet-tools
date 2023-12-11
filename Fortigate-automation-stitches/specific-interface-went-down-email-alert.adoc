@@ -3,10 +3,7 @@
 _Task_ We want to get email alert only when interface _port2_ goes down. 
 
 
-The trigger for interface _port2_  going down:
-
-
-
+* The trigger for interface _port2_  going down:
 
 ----
 config sys automation-trigger
@@ -28,7 +25,7 @@ end
 ----
 
 
-Action to send email alert (make sure mail server is configured in `config sys
+* Action to send email alert (make sure mail server is configured in `config sys
 email-server`):
 
 ----
@@ -45,7 +42,7 @@ end
 ----
 
 
-Stitch itself:
+* Stitch itself:
 
 ----
 config system automation-stitch

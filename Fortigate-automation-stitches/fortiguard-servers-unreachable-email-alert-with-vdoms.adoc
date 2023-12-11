@@ -26,7 +26,7 @@ end
 * Action. We have 2 sequential actions, 1st runs CLI debug, 2nd sends the results by  email.
 
 ----
- config sys automation-action
+config sys automation-action
     edit "FortiGuardDown_debug"
         set action-type cli-script
         set script " config vdom
@@ -44,10 +44,8 @@ show full system global | grep vdom
         set accprofile "super_admin"
     next
 
-----
 
-----
-   edit "WebFilterDown_email"
+    edit "WebFilterDown_email"
         set action-type email
         set email-to "admin@yurisk.info"
         set email-from "fgt@yurisk.info"

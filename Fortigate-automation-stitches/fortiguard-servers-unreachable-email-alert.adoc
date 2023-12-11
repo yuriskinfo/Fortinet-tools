@@ -38,9 +38,6 @@ get sys perf stat
         set accprofile "super_admin"
     next
 
-----
-
-----
    edit "WebFilterDown_email"
         set action-type email
         set email-to "admin@yurisk.info"

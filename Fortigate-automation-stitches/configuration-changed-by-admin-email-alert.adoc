@@ -36,6 +36,7 @@ end
 * Stitch:
 
 ----
+config system automation-stitch
     edit "ConfigChanged"
         set status disable
         set trigger "ConfigChanged_trigger"

@@ -12,7 +12,7 @@ your own values.
 
 
 
-
+* Trigger
 
 ----
 config system automation-trigger
@@ -29,6 +29,8 @@ config system automation-trigger
 end
 ----
 
+* Action:
+
 ----
 config system automation-action
     edit "VPNUpEmail"
@@ -40,6 +42,7 @@ config system automation-action
 end
 ----
 
+* Stitch:
 
 ----
 config sys automation-stitch

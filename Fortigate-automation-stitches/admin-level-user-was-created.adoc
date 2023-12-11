@@ -14,6 +14,7 @@ Replace _admin@yurisk.info_ and _fgt@yurisk.info_ values with your own.
 * Trigger based on few criteria:
 
 ----
+config system automation-trigger
    edit "AdminUserCreatedlog"
         set event-type event-log
         set logid 44547
@@ -34,6 +35,7 @@ end
 * Action:
 
 ----
+config system automation-action
     edit "Admin User Was Created"
         set action-type email
         set email-to "admin@yurisk.info"
@@ -50,6 +52,7 @@ end
 * Stitch:
 
 ----
+config sys automation-stitch
    edit "AdminUserCreated"
         set trigger "AdminUserCreatedlog"
         config actions
