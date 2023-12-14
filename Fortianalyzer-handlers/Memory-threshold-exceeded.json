@@ -1,0 +1,65 @@
+{
+    "data": {
+        "basic-handler": [
+            {
+                "automation-stitch": 0,
+                "content-pack-id": "",
+                "content-pack-uuid": "",
+                "creation-time": 0,
+                "data-selector": "",
+                "description": "Once reported CPU exceeds the set limit, alert will be generated.",
+                "enable": 1,
+                "enable-time": 0,
+                "handler-id": "4b7_fdb_a86_e75",
+                "name": "Memory threshold exceeded",
+                "notification": "",
+                "protected": 0,
+                "rule": [
+                    {
+                        "aggregate-expr": "COUNT(*)>=1",
+                        "devtype": 0,
+                        "enable": 1,
+                        "eventstatus": "auto",
+                        "eventtype": null,
+                        "extrainfo": "",
+                        "extrainfo-type": 0,
+                        "filter": [
+                            {
+                                "id": 1,
+                                "key": "logid",
+                                "oper": 0,
+                                "value": "0100040704"
+                            },
+                            {
+                                "id": 2,
+                                "key": "mem",
+                                "oper": 2,
+                                "value": "75"
+                            }
+                        ],
+                        "filter-expr": "",
+                        "filter-relation": 0,
+                        "groupby1": "devname-vdom",
+                        "groupby2": "",
+                        "groupby3": "",
+                        "indicator": null,
+                        "logtype": "event",
+                        "name": "Memory usage limit exceeded",
+                        "rule-id": "d3d_97c_c69_384",
+                        "severity": 2,
+                        "subject": null,
+                        "tags": "",
+                        "thres-duration": 2,
+                        "utmevent": "system"
+                    }
+                ],
+                "template-url": "",
+                "update-time": 0,
+                "uuid": "",
+                "version": 2
+            }
+        ]
+    },
+    "data-type": "txt",
+    "length": 1007
+}

@@ -1,4 +1,5 @@
 = Fortinet-related scripts, tools, syntax highlighting files and such
+:toc:
 
 In this repo I collect scripts, automation stitches, various tools I find useful in my work with Fortinet products. 
 Make sure to watch this repository to get notified on updates. Your stars on the repository as a sign that you found it useful are appreciated, thanks.
@@ -13,4 +14,9 @@ that it will work on your gear, nor can predict all possible outcomes, so test b
 https://github.com/yuriskinfo/Fortinet-tools/tree/main/Fortigate-automation-stitches#collection-of-fortigate-automation-stitches[Collection of Automation Stitches]
 
 
+== Collection of Fortianalyzer Handlers
+Mostly based on the Automation stitches above, but not completely. Allows to scale when managing multiple Fortigates and configuring auto-stitches becomes not practical. Fortianalyzer can send notification/alerts as well as notify Fortigate to run pre-configured automation stitch on the Fortigate itself. 
+As always - please test before using in production. 
+
+https://github.com/yuriskinfo/Fortinet-tools/tree/main/Fortianalyzer-handlers[Fortianalyzer Handlers collection]
 

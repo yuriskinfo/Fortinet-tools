@@ -1,0 +1,71 @@
+{
+    "data": {
+        "basic-handler": [
+            {
+                "automation-stitch": 0,
+                "content-pack-id": "",
+                "content-pack-uuid": "",
+                "creation-time": 0,
+                "data-selector": "",
+                "description": "",
+                "enable": 1,
+                "enable-time": 0,
+                "handler-id": "b83_262_a3a_69a",
+                "name": "Admin level user was added",
+                "notification": "",
+                "protected": 0,
+                "rule": [
+                    {
+                        "aggregate-expr": "COUNT(*) >= 1",
+                        "devtype": 0,
+                        "enable": 1,
+                        "eventstatus": "auto",
+                        "eventtype": null,
+                        "extrainfo": "Admin level user ${cfgobject} was created by ${user}",
+                        "extrainfo-type": 0,
+                        "filter": [
+                            {
+                                "id": 1,
+                                "key": "logid",
+                                "oper": 0,
+                                "value": "0100044547"
+                            },
+                            {
+                                "id": 2,
+                                "key": "action",
+                                "oper": 0,
+                                "value": "Add"
+                            },
+                            {
+                                "id": 3,
+                                "key": "cfgpath",
+                                "oper": 0,
+                                "value": "system.admin"
+                            }
+                        ],
+                        "filter-expr": "",
+                        "filter-relation": 0,
+                        "groupby1": "devname",
+                        "groupby2": "",
+                        "groupby3": "",
+                        "indicator": null,
+                        "logtype": "event",
+                        "name": "Admin level user was created",
+                        "rule-id": "6d5_725_e49_7b0",
+                        "severity": 1,
+                        "subject": null,
+                        "tags": "",
+                        "thres-duration": 2,
+                        "utmevent": "system"
+                    }
+                ],
+                "template-url": "",
+                "update-time": 0,
+                "uuid": "",
+                "version": 2
+            }
+        ]
+    },
+    "data-type": "txt",
+    "length": 1064
+}

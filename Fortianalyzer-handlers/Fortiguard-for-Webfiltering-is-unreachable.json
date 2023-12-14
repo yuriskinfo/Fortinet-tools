@@ -1,0 +1,59 @@
+{
+    "data": {
+        "basic-handler": [
+            {
+                "automation-stitch": 0,
+                "content-pack-id": "",
+                "content-pack-uuid": "",
+                "creation-time": 0,
+                "data-selector": "",
+                "description": "",
+                "enable": 1,
+                "enable-time": 0,
+                "handler-id": "1ef_5ae_124_5ee",
+                "name": "Fortiguard for Webfiltering is unreachable",
+                "notification": "",
+                "protected": 0,
+                "rule": [
+                    {
+                        "aggregate-expr": "COUNT(*)>=1",
+                        "devtype": 0,
+                        "enable": 1,
+                        "eventstatus": "auto",
+                        "eventtype": null,
+                        "extrainfo": null,
+                        "extrainfo-type": 0,
+                        "filter": [
+                            {
+                                "id": 1,
+                                "key": "logid",
+                                "oper": 0,
+                                "value": "0100020119"
+                            }
+                        ],
+                        "filter-expr": "",
+                        "filter-relation": 1,
+                        "groupby1": "devname-vdom",
+                        "groupby2": "",
+                        "groupby3": "",
+                        "indicator": null,
+                        "logtype": "event",
+                        "name": "Fortiguard for Webfiltering is unreachable",
+                        "rule-id": "305_ddc_a5d_256",
+                        "severity": 0,
+                        "subject": null,
+                        "tags": "",
+                        "thres-duration": 30,
+                        "utmevent": "system"
+                    }
+                ],
+                "template-url": "",
+                "update-time": 0,
+                "uuid": "",
+                "version": 2
+            }
+        ]
+    },
+    "data-type": "txt",
+    "length": 924
+}
