@@ -4,7 +4,7 @@ _Task_: When local to the Fortigate certificate is about to expire (10 days
 ahead), send an email alert. The stitch does not care what this certificate is
 used for - SSL VPN, or admin GUI access.
 
-
+NOTE: Requires FortiOS 7.2 or newer.
 
 * Set how early before the expiration to alert, in days (the default is already 
 set on most versions to 14 days):

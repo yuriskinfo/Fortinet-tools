@@ -1,7 +1,7 @@
 = Fortianalyzer Handlers collection
 
 The collection is based on the Fortigate automation stitches one, making it scalable to multiple Fortigates that send their logs to the Fortianalyzer (FAZ).
-As always, if you have an idea for a new Handler or find any errors - feel free to let me know. 
+As always, if you have an idea for a new Handler or find any errors - feel free to let me know. Also pay attention to predefined Handlers every FAZ comes with, they may hav ethe functionality you need as well.
 
 I tested and am using this collection in production environment, but cannot verify every possible device & versions combination, so test before using it. 
 
@@ -26,6 +26,8 @@ config system dns
     set primary 10.100.0.2
 end
 ----
+
+The mail will contain the full log that triggered the Handler.
 
 Here is a GUI example, specifically of the _Send email on successful admin-level user log in_ Handler image:Configuring-new-handler-example.png[]
 

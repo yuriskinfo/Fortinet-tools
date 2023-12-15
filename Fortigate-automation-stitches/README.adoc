@@ -115,6 +115,8 @@ link:admin-level-user-logged-in-email-alert.adoc[Send email alert on successful 
 
 link:admin-level-user-was-created.adoc[Send email on admin-level user being created/added]
 
+link:admin-level-user-password-changed-email-alert.adoc[Send email on admin-level user password change]
+
 link:backup-config-on-change.adoc[Back up configuration when changed to external server via SFTP]
 
 link:backup-config-daily-to-external-server.adoc[Back up configuration daily to external server via SFTP]
