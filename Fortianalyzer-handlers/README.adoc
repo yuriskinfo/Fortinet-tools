@@ -47,3 +47,5 @@ link:Fortiguard-for-Webfiltering-is-unreachable.json[Fortiguard for Webfiltering
 link:Memory-threshold-exceeded.json[Memory threshold exceeded]
 
 link:Send-email-alert-on-successful-admin-level-user-log-in.json[Send email on successful admin-level user log in]
+
+link:Send-email-alert-on-specific-policy-rule-hit.adoc[Send email on specific security policy rule hit]
