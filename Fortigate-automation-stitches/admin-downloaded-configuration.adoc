@@ -43,9 +43,9 @@ end
 
 ----
 config system automation-stitch
-    edit "ConfigChanged"
+    edit "ConfigDownload"
         set status disable
-        set trigger "ConfigChanged_trigger"
+        set trigger "Backup completed"
         config actions
             edit 1
                 set action "ConfigDownloaded_email"
