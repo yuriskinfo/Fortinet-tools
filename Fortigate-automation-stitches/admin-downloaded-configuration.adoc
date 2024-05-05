@@ -1,0 +1,58 @@
+= Send alert on Fortigate configuration being downloaded from the GUI
+
+_Task_: Each time a user with admin rights downloads Fortigate configuration via GUI, send email alert. 
+
+NOTE: Thanks to Craig Gauss for this stitch.
+
+
+
+* Trigger:
+
+----
+
+config system automation-trigger
+    edit "Backup completed"
+        set event-type event-log
+        set logid 32095
+        config fields
+            edit 1
+                set name "action"
+                set value "download"
+            next
+        end
+    next
+end
+
+
+----
+
+* Action - email alert:
+
+----
+config sys automation-action
+    edit "ConfigDownloaded_email"
+        set action-type email
+        set email-to "admin@yurisk.info"
+        set email-from "fgt@yurisk.info"
+        set email-subject "%%log.logdesc%%"
+    next
+end
+----
+
+* Stitch:
+
+----
+config system automation-stitch
+    edit "ConfigChanged"
+        set status disable
+        set trigger "ConfigChanged_trigger"
+        config actions
+            edit 1
+                set action "ConfigDownloaded_email"
+                set required enable
+            next
+        end
+    next
+end
+----
+

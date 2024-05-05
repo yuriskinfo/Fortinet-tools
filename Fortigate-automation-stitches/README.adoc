@@ -121,6 +121,8 @@ link:backup-config-on-change.adoc[Back up configuration when changed to external
 
 link:backup-config-daily-to-external-server.adoc[Back up configuration daily to external server via SFTP]
 
+link:admin-downloaded-configuration.adoc[Send alert on Fortigate configuration being downloaded from the GUI]
+
 link:certificate-is-about-to-expire-warning-email-alert.adoc[Local TLS Certificate is about to expire email alert]
 
 link:configuration-changed-by-admin-email-alert.adoc[Send alert on Fortigate configuration changed by administrator without details]
