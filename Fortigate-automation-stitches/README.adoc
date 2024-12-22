@@ -157,3 +157,5 @@ link:specific-interface-went-down-email-alert.adoc[When  only a given interface 
 
 link:ssl-vpn-user-login-successful-from-specific-ip-alert-by-email.adoc[SSL VPN tunnel up with condition of remote IP address]
 
+link:flush-vpn-tunnel-on-schedule-with-VDOMs.adoc[Flush VPN IPSec tunnel on a daily schedule]
+
