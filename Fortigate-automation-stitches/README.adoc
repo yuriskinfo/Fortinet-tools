@@ -159,3 +159,5 @@ link:ssl-vpn-user-login-successful-from-specific-ip-alert-by-email.adoc[SSL VPN 
 
 link:flush-vpn-tunnel-on-schedule-with-VDOMs.adoc[Flush VPN IPSec tunnel on a daily schedule]
 
+link:Fortigate-automation-stitches\fortiguard-servers-unreachable-email-alert-with-vdoms.adoc[Restart both - IPS & WAD processes at the same time by schedule to prevent Conserve Mode]
+
