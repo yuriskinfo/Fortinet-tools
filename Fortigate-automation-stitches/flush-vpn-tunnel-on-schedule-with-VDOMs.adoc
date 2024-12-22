@@ -1,0 +1,52 @@
+= Flush IPSec VPN tunnel on schedule with VDOMs enabled
+
+*Task*: Flush VPN IPSec tunnel by name daily at 17:10 to bypass the FortiOS 7.4.x bug on Fortigate 100F/200F of tunnel being up but no traffic passing inside it. The VPN tunnel name here is _VPN-TO-US_ (name of the Phase1 interface).
+
+NOTE: When VDOMs enabled the only difference is in the Action - before running the `flush` command, you have to enter the VDOM where the VPN tunnel is located. Without VDOMs - just remove 1st 2 lines in the action _config vdom_ and _edit <VDOM name>_. 
+
+
+* Create an action to run command `diagnose vpn ike gateway flush name <VPN-name>`
+
+----
+config sys automation-action
+    edit "ScheduleVPNtoUSRefresh"
+        set action-type cli-script
+        set script "config vdom
+edit root
+diagnose vpn ike gateway flush name VPN-TO-US
+"
+        set accprofile "super_admin"
+    next
+end
+----
+
+* Create a daily schedule to run the stitch at 17:10
+
+----
+
+config sys   automation-trigger
+    edit "Daily_trigger"
+        set trigger-type scheduled
+        set trigger-hour 17
+        set trigger-minute 10
+    next
+end
+----
+
+
+* Connect trigger with action into a stitch:
+
+----
+config sys automation-stitch
+    edit "RefreshVPNUS"
+        set trigger "Daily_trigger"
+        config actions
+            edit 1
+                set action "ScheduleVPNtoUSRefresh"
+                set required enable
+            next
+        end
+    next
+end
+----
+
