@@ -1,6 +1,6 @@
 = Flush IPSec VPN tunnel on schedule with VDOMs enabled
 
-*Task*: Flush VPN IPSec tunnel by name daily at 17:10 to bypass the FortiOS 7.4.x bug on Fortigate 100F/200F of tunnel being up but no traffic passing inside it. The VPN tunnel name here is _VPN-TO-US_ (name of the Phase1 interface).
+_Task_: Flush VPN IPSec tunnel by name daily at 17:10 to bypass the FortiOS 7.4.x bug on Fortigate 100F/200F of tunnel being up but no traffic passing inside it. The VPN tunnel name here is _VPN-TO-US_ (name of the Phase1 interface).
 
 NOTE: When VDOMs enabled the only difference is in the Action - before running the `flush` command, you have to enter the VDOM where the VPN tunnel is located. Without VDOMs - just remove 1st 2 lines in the action _config vdom_ and _edit <VDOM name>_. 
 

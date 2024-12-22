@@ -1,0 +1,64 @@
+= Restart both - IPS and WAD processes to prevent Conserve Mode 
+
+_Task_: To prevent memory leak by those 2 processes, restart them weekly.
+
+
+* Create 2 actions to restart each process:
+
+
+----
+config sys automation-action
+    edit "WADRestart"
+        set action-type cli-script
+        set script "diagnose test application wad 99"
+        set accprofile "super_admin"
+    next
+end
+----
+
+
+----
+config sys automation-action
+    edit "IPSsRestart"
+        set action-type cli-script
+        set script "diagnose test application ipsmonitor 99"
+        set accprofile "super_admin"
+    next
+end
+----
+
+* Create a weekly scheduled trigger, here - each Sunday at 02:00 AM:
+
+----
+config system automation-trigger
+    edit "Weekly_trigger"
+        set trigger-type scheduled
+        set trigger-frequency weekly
+        set trigger-weekday sunday
+        set trigger-hour 2
+    next
+end
+----
+
+
+* Combine the above to an automation stitch:
+
+----
+config sys automation-stitch
+    edit "ScheduleWADIPSRestart_stitch"
+        set trigger "Weekly_trigger"
+        config actions
+            edit 1
+            set action "WADRestart"
+            set required enable
+            next
+        edit 2
+            set action "IPSsRestart"
+            set required enable
+            next
+            end
+        next
+end
+----
+
+
