@@ -20,3 +20,10 @@ As always - please test before using in production.
 
 https://github.com/yuriskinfo/Fortinet-tools/tree/main/Fortianalyzer-handlers[Fortianalyzer Handlers collection]
 
+== Packet captures done on Fortinet equipment
+
+Collection of .pcap packet captures done on Fortinet products (mostly on Fortigates, but not all). TO illustrate labs/experiments I write about in my blog and to have collection for all to use to learn about networking in general (BGP on Fortigate is the same BGP as on Cisco/Juniper/etc.) and Fortinet-specific products in particular. 
+
+
+https://github.com/yuriskinfo/Fortinet-tools/tree/main/Wireshark-ready-packet-captures[Wireshark-ready packet captures]
+
