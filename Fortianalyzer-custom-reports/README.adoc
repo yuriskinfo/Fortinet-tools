@@ -1,0 +1,4 @@
+= Custom Fortianalyzer Reports
+
+link:Logs-per-device-per-VDOM-report.dat[Logs per device per VDOM report last 7 days]
+

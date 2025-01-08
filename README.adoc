@@ -27,3 +27,7 @@ Collection of .pcap packet captures done on Fortinet products (mostly on Fortiga
 
 https://github.com/yuriskinfo/Fortinet-tools/tree/main/Wireshark-ready-packet-captures[Wireshark-ready packet captures]
 
+
+== Custom Fortianalyzer Reports Collection
+
+https://github.com/yuriskinfo/Fortinet-tools/tree/main/Fortianalyzer-custom-reports
