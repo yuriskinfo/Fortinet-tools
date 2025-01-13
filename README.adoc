@@ -30,4 +30,4 @@ https://github.com/yuriskinfo/Fortinet-tools/tree/main/Wireshark-ready-packet-ca
 
 == Custom Fortianalyzer Reports Collection
 
-https://github.com/yuriskinfo/Fortinet-tools/tree/main/Fortianalyzer-custom-reports
+https://github.com/yuriskinfo/Fortinet-tools/tree/main/Fortianalyzer-custom-reports[Fortianalyzer-custom-reports]
