@@ -1,4 +1,4 @@
 = Custom Fortianalyzer Reports
 
-link:Logs-per-device-per-VDOM-report.dat[Logs per device per VDOM report last 7 days]
+link:Logs-per-device-per-VDOM-report.dat[Logs per device per VDOM report last 7 days] and example of such report: link:Logs-per-device-per-VDOM-report.pdf[Example report PDF]
 
