@@ -1,4 +1,4 @@
 = Custom Fortianalyzer Reports
 
-link:Logs-per-device-per-VDOM-report.dat[Logs per device per VDOM report last 7 days] and example of such report: link:Logs-per-device-per-VDOM-report.pdf[Example report PDF]
-
+* link:Logs-per-device-per-VDOM-report.dat[Logs per device per VDOM report for previous 7 days] and example of such report: link:Logs-per-device-per-VDOM-report.pdf[Example report PDF]
+* link:CPU-memory-bandwidth-and-sessions-rate-report.dat[CPU memory bandwidth usage and sessions set up rate report for previous 7 days] and example report as link:CPU-memory-bandwidth-and-sessions-rate-report.pdf[PDF] and as link:CPU-memory-bandwidth-and-sessions-rate-report.csv[CSV]
