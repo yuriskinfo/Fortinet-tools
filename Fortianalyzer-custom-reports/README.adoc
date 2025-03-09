@@ -1,4 +1,40 @@
 = Custom Fortianalyzer Reports
 
 * link:Logs-per-device-per-VDOM-report.dat[Logs per device per VDOM report for previous 7 days] and example of such report: link:Logs-per-device-per-VDOM-report.pdf[Example report PDF]
+
+The custom data-set for this report is (Log Type = Traffic):
+
+[source,sql]
+----
+SELECT
+  devname,
+  vd,
+  policyid,
+  count(policyid) AS number_of_logs
+FROM
+  $log
+WHERE
+  $filter
+GROUP BY
+  devname,
+  vd,
+  policyid
+ORDER BY
+  number_of_logs DESC
+----
+
+
+
 * link:CPU-memory-bandwidth-and-sessions-rate-report.dat[CPU memory bandwidth usage and sessions set up rate report for previous 7 days] and example report as link:CPU-memory-bandwidth-and-sessions-rate-report.pdf[PDF] and as link:CPU-memory-bandwidth-and-sessions-rate-report.csv[CSV]
+
+
+The custom data-set for this report is (Log Type = Event):
+
+[source,sql]
+----
+SELECT from_dtime(dtime) AS epoch_time, cpu, mem, setuprate, totalsession, bandwidth 
+FROM $log 
+WHERE $filter 
+AND 
+action='perf-stats' ORDER BY epoch_time
+----
