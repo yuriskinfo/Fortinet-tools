@@ -19,7 +19,7 @@ end
 * Action to actually reboot the firewall, using the command `exec reboot`:
 
 ----
-config sys automation-aciton   
+config sys automation-action   
          edit "ScheduledReboot"
         set action-type cli-script
         set script "exec reboot"
