@@ -6,7 +6,7 @@ _Task_: Reboot Fortigate daily at 02:00 at night.
 * Schedule every day at 02:00 at night as a trigger:
 
 ----
-condfig sys automation-trigger
+config sys automation-trigger
     edit "ScheduledReboot_trigger"
         set trigger-type scheduled
         set trigger-hour 2
@@ -18,7 +18,7 @@ end
 * Action to actually reboot the firewall, using the command `exec reboot`:
 
 ----
-config sys automation-aciton   
+config sys automation-action   
          edit "ScheduledReboot"
         set action-type cli-script
         set script "exec reboot"
