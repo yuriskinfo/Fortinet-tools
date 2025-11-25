@@ -113,9 +113,13 @@ See for the full example: link:ssl-vpn-user-login-successful-from-specific-ip-al
 
 link:admin-level-user-logged-in-email-alert.adoc[Send email alert on successful admin-level user log in.]
 
+link:admin-level-user-logged-in-email-alert-https-only.adoc[Send email alert on successful admin-level user log in via HTTPS GUI only.]
+
 link:admin-level-user-was-created.adoc[Send email on admin-level user being created/added]
 
 link:admin-level-user-password-changed-email-alert.adoc[Send email on admin-level user password change]
+
+link:admin-level-user-password-changed-email-alert-7.4.adoc[Send email on admin-level user password change for FortiOS 7.4.x or later]
 
 link:backup-config-on-change.adoc[Back up configuration when changed to external server via SFTP]
 
