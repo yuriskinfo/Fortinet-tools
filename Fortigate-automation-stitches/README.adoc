@@ -121,6 +121,8 @@ link:admin-level-user-password-changed-email-alert.adoc[Send email on admin-leve
 
 link:admin-level-user-password-changed-email-alert-7.4.adoc[Send email on admin-level user password change for FortiOS 7.4.x or later]
 
+link:configuration-in-sys-admin-section-changed-by-with-changes-email-alert.adoc[Send alert on Fortigate configuration changed in system -> admin section by administrator with details]
+
 link:backup-config-on-change.adoc[Back up configuration when changed to external server via SFTP]
 
 link:backup-config-daily-to-external-server.adoc[Back up configuration daily to external server via SFTP]
