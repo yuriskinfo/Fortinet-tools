@@ -1,0 +1,48 @@
+= Reboot Fortigate on entering Conserve Mode
+
+_Task_: Reboot Fortigate each time it enters the Conserve Mode.
+
+WARNING: Be aware that rebooting the Fortigate may or may not solve the issue of Conserve Mode. In the case it does not, you may cause Fortigate to do endless cycle of Conserve Mode -> Reboot -> Conserve Mode. Use with caution.
+
+
+
+* Create trigger for the event:
+
+----
+config system automation-trigger
+    edit "ConserveModeOn_trigger"
+        set event-type low-memory
+    next
+----
+
+* Action to actually reboot the firewall, using the command `exec reboot`:
+
+----
+config sys automation-aciton   
+         edit "RebootMe"
+        set action-type cli-script
+        set script "exec reboot"
+        set accprofile "super_admin"
+    next
+end
+----
+
+* Stitch to tie all the above:
+
+----
+config sys automation-stitch
+    edit "ScheduledReboot_stitch"
+        set trigger "ConserveModeOn_trigger"
+        config actions
+            edit 1
+                set action "RebootMe"
+                set required enable
+            next
+        end
+    next
+end
+----
+
+NOTE: see also link:conserve-mode-on-email-alert.adoc[email alert on Fortigate entering conserve mode]
+
+

@@ -165,3 +165,6 @@ link:flush-vpn-tunnel-on-schedule-with-VDOMs.adoc[Flush VPN IPSec tunnel on a da
 
 link:restart-both-ips-and-wad-processes.adoc[Restart both - IPS & WAD processes at the same time by schedule to prevent Conserve Mode]
 
+link:fortigate-lost-connection-to-fortianalyzer.adoc[Send email alert when the Fortigate loses connection to Fortianalyzer]
+
+link:reboot-on-entering-conserve-mode.adoc[Reboot Fortigate on entering Conserve Mode]

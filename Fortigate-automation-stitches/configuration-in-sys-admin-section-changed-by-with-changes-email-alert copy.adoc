@@ -1,0 +1,52 @@
+= Send alert on Fortigate configuration changed in system -> admin section by administrator with details
+
+_Task_: Each time any configuration is being changed under the subtree/section of `config sys admin` - those changes related to the admin level users, send an email that will also contain the detailed description of what changes were made. 
+
+NOTE: This stitch will fire on changes ONLY inside `config sys admin`, which will include adding/deleting administrative user, changing `trusthost`, changing password for local administrative users and such.
+
+
+
+* Trigger:
+
+----
+config system automation-trigger
+    edit "AdminUserChangedlog"
+        set event-type event-log
+        set logid 44547
+        config fields
+            edit 1
+                set name "cfgpath"
+                set value "system.admin"
+            next
+        end
+    next
+end
+----
+
+* Action - email alert:
+
+----
+edit "Admin User Was Changed"
+        set action-type email
+        set email-to "fgt@yurisk.info"
+        set email-subject "Admin user was changed on %%log.devname%% by %%log.user%%"
+    next
+end
+----
+
+* Stitch:
+
+----
+config system automation-stitch
+    edit "AdminUserChanged"
+        set trigger "AdminUserChangedlog"
+        config actions
+            edit 1
+                set action "Admin User Was Changed"
+                set required enable
+            next
+        end
+    next
+end
+----
+

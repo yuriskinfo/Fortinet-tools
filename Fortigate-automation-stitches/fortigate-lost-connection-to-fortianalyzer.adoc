@@ -1,0 +1,50 @@
+= Send email alert when the Fortigate loses connection to Fortianalyzer
+
+
+_Task_ We want to get email alert from Fortigate when it loses its connection to the Fortianalyzer.
+
+
+* The trigger for FAZ connection  going down:
+
+----
+config system automation-trigger
+edit "FortiAnalyzer Connection Down"
+        set description "FortiAnalyzer connection is lost."
+        set event-type event-log
+        set logid 22902
+    next
+end
+----
+
+
+* Action to send email alert (make sure mail server is configured in `config sys
+email-server`):
+
+----
+config system automation-action
+edit "FAZ-down-email"
+        set action-type email
+        set email-to "fgt@yurisk.info"
+        set email-subject "%%log.devname%% - conn to FAZ is DOWN"
+        set minimum-interval 600
+    next
+----
+
+
+
+* Stitch itself:
+
+----
+config system automation-stitch
+edit "FortiAnalyzer Connection Down"
+        set description "send an email notification when the connection to FortiAnalyzer is lost."
+        set trigger "FortiAnalyzer Connection Down"
+        config actions
+            edit 1
+                set action "FAZ-down-email"
+            next
+        end
+    next
+end
+----
+
