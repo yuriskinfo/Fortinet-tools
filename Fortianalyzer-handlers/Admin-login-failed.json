@@ -1,0 +1,59 @@
+{
+    "data": {
+        "basic-handler": [
+            {
+                "automation-stitch": 0,
+                "content-pack-id": "",
+                "content-pack-uuid": "",
+                "creation-time": 0,
+                "data-selector": "",
+                "description": "Alert on failed admin-level users logins.",
+                "enable": 1,
+                "enable-time": 0,
+                "handler-id": "52d_e1f_ab1_323",
+                "name": "Admin login failed",
+                "notification": "",
+                "protected": 0,
+                "rule": [
+                    {
+                        "aggregate-expr": "COUNT(*)>=1",
+                        "devtype": 0,
+                        "enable": 1,
+                        "eventstatus": "auto",
+                        "eventtype": null,
+                        "extrainfo": null,
+                        "extrainfo-type": 0,
+                        "filter": [
+                            {
+                                "id": 1,
+                                "key": "logid",
+                                "oper": 0,
+                                "value": "0100032002"
+                            }
+                        ],
+                        "filter-expr": "",
+                        "filter-relation": 1,
+                        "groupby1": "devname-vdom",
+                        "groupby2": "",
+                        "groupby3": "",
+                        "indicator": null,
+                        "logtype": "event",
+                        "name": "Admin_login_failed",
+                        "rule-id": "cda_336_2c4_1f2",
+                        "severity": 2,
+                        "subject": null,
+                        "tags": "",
+                        "thres-duration": 30,
+                        "utmevent": "system"
+                    }
+                ],
+                "template-url": "",
+                "update-time": 0,
+                "uuid": "",
+                "version": 2
+            }
+        ]
+    },
+    "data-type": "txt",
+    "length": 917
+}

@@ -1,0 +1,65 @@
+{
+    "data": {
+        "basic-handler": [
+            {
+                "automation-stitch": 0,
+                "content-pack-id": "",
+                "content-pack-uuid": "",
+                "creation-time": 0,
+                "data-selector": "",
+                "description": "Alert on a specified admin level user logging in. Use to monitor for emergency-only admin accounts logins that should never occur unless emergency.",
+                "enable": 1,
+                "enable-time": 0,
+                "handler-id": "6d4_503_590_e8f",
+                "name": "Sensitive admin user logged in",
+                "notification": "",
+                "protected": 0,
+                "rule": [
+                    {
+                        "aggregate-expr": "COUNT(*)>=1",
+                        "devtype": 0,
+                        "enable": 1,
+                        "eventstatus": "auto",
+                        "eventtype": null,
+                        "extrainfo": null,
+                        "extrainfo-type": 0,
+                        "filter": [
+                            {
+                                "id": 1,
+                                "key": "logid",
+                                "oper": 0,
+                                "value": "0100032001"
+                            },
+                            {
+                                "id": 2,
+                                "key": "user",
+                                "oper": 0,
+                                "value": "secretadmin"
+                            }
+                        ],
+                        "filter-expr": "",
+                        "filter-relation": 0,
+                        "groupby1": "devname-vdom",
+                        "groupby2": "",
+                        "groupby3": "",
+                        "indicator": null,
+                        "logtype": "event",
+                        "name": "Specific_admin_logged_in",
+                        "rule-id": "5a7_b2a_862_242",
+                        "severity": 0,
+                        "subject": null,
+                        "tags": "",
+                        "thres-duration": 30,
+                        "utmevent": "system"
+                    }
+                ],
+                "template-url": "",
+                "update-time": 0,
+                "uuid": "",
+                "version": 2
+            }
+        ]
+    },
+    "data-type": "txt",
+    "length": 1104
+}

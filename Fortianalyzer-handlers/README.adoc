@@ -32,6 +32,12 @@ The mail will contain the full log that triggered the Handler.
 Here is a GUI example, specifically of the _Send email on successful admin-level user log in_ Handler image:Configuring-new-handler-example.png[]
 
 
+link:Admin-login-failed.json[Admin-level user login failed]
+
+link:Admin-user-was-locked-out.json[Host was locked out due to multiple failed admin logins]
+
+link:Sensitive-admin-user-logged-in.json[Sensitive admin-level user logged in]
+
 link:Admin-level-user-was-added.json[Admin-level user was added]
 
 link:Admin-level-user-was-deleted.json[Admin-level user was deleted]
