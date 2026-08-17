@@ -111,6 +111,12 @@ See for the full example: link:ssl-vpn-user-login-successful-from-specific-ip-al
 == Automation Stitches Collection
 
 
+link:admin-login-failed.adoc[Failed admin-level user log in email alert]
+
+link:admin-user-was-locked-out.adoc[Admin access locked out for multiple log in failures email alert]
+
+link:sensitive-admin-user-logged-in.adoc[Sensitive/specific admin logged in email alert]
+
 link:admin-level-user-logged-in-email-alert.adoc[Send email alert on successful admin-level user log in.]
 
 link:admin-level-user-logged-in-email-alert-https-only.adoc[Send email alert on successful admin-level user log in via HTTPS GUI only.]

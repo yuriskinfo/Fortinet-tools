@@ -1,0 +1,53 @@
+= Send email alert on specific admin-level user logging in
+
+_Task_: When the specified (here _secretadmin_) user logs into the Fortigate, send email alert. The idea is to
+monitor emergency-only admins that should not be used routinely.
+
+* Trigger
+
+----
+config system automation-trigger
+    edit "Sensitive-admin-user-logged-in"
+        set event-type event-log
+        set logid 32001
+        config fields
+            edit 1
+                set name "user"
+                set value "secretadmin"
+            next
+        end
+    next
+end
+----
+
+* Email alert as action
+
+----
+config system automation-action
+  edit "Default Email"
+        set description "Default automation action configuration for sending an email with basic information on the log event."
+        set action-type email
+        set email-to "fgt@yurisk.info"
+        set email-subject "%%log.logdesc%%"
+    next
+end
+----
+
+
+* Stitch
+
+----
+config system automation-stitch
+    edit "Sensitive-admin-user-logged-in"
+        set trigger "Sensitive-admin-user-logged-in"
+        config actions
+            edit 1
+                set action "Default Email"
+                set required enable
+            next
+        end
+    next
+end
+----
+
+
